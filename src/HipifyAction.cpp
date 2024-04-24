@@ -36,6 +36,13 @@ THE SOFTWARE.
 
 using namespace hipify;
 
+
+
+const std::string sBOSCHIFIED_KERNEL_NAME = "BOSCHIFIED_KERNEL_NAME";
+const std::string sBoschKernelLaunchGGL = "boschify_launch";
+
+
+
 const std::string sHIP = "HIP";
 const std::string sROC = "ROC";
 const std::string sCub = "cub";
@@ -234,6 +241,7 @@ const StringRef sCubFunctionTemplateDecl = "cubFunctionTemplateDecl";
 const StringRef sCubUsingNamespaceDecl = "cubUsingNamespaceDecl";
 const StringRef sHalf2Member = "half2Member";
 const StringRef sDataTypeSelection = "dataTypeSelection";
+const StringRef sCudaKernelDefinition = "cudaKernelDecl";
 
 std::string getCastType(hipify::CastTypes c) {
   switch (c) {
@@ -2434,7 +2442,117 @@ void HipifyAction::PragmaDirective(clang::SourceLocation Loc, clang::PragmaIntro
   }
 }
 
+bool HipifyAction::plainLaunchKernel(const mat::MatchFinder::MatchResult &Result) {
+  auto *launchKernel = Result.Nodes.getNodeAs<clang::CUDAKernelCallExpr>(sCudaLaunchKernel);
+  if (!launchKernel) return false;
+  auto *calleeExpr = launchKernel->getCallee();
+  if (!calleeExpr) return false;
+  auto *caleeDecl = launchKernel->getDirectCallee();
+  if (!caleeDecl) return false;
+  auto *config = launchKernel->getConfig();
+  if (!config) return false;
+
+  clang::SmallString<40> XStr;
+  llvm::raw_svector_ostream OS(XStr);
+  clang::LangOptions DefaultLangOptions;
+  auto *SM = Result.SourceManager;
+  clang::SourceRange sr = calleeExpr->getSourceRange();
+  std::string kern = readSourceText(*SM, sr).str();
+  OS << sBoschKernelLaunchGGL << "<";
+  if (caleeDecl->isTemplateInstantiation()) {
+    OS << sBOSCHIFIED_KERNEL_NAME << "(";
+    std::string cub = sCub + "::";
+    std::string hipcub;
+    const auto found = CUDA_CUB_NAMESPACE_MAP.find(sCub);
+    if (found != CUDA_CUB_NAMESPACE_MAP.end()) {
+      hipcub = found->second.hipName.str() + "::";
+    } else {
+      hipcub = sHipcub + "::";
+    }
+    size_t pos = kern.find(cub);
+    while (pos != std::string::npos) {
+      kern.replace(pos, cub.size(), hipcub);
+      pos = kern.find(cub, pos + hipcub.size());
+    }
+  }
+  OS << kern;
+  if (caleeDecl->isTemplateInstantiation()) OS << ")";
+  OS << ", ";
+  // Next up are the four kernel configuration parameters, the last two of which are optional and default to zero.
+  // Copy the two dimensional arguments verbatim.
+  for (unsigned int i = 0; i < 2; ++i) {
+    const std::string sArg = readSourceText(*SM, config->getArg(i)->getSourceRange()).str();
+    bool bDim3 = std::equal(sDim3.begin(), sDim3.end(), sArg.c_str());
+    OS << (bDim3 ? "" : sDim3) << sArg << (bDim3 ? "" : ")") << ", ";
+  }
+  // The stream/memory arguments default to zero if omitted.
+  OS << stringifyZeroDefaultedArg(*SM, config->getArg(2)) << ", ";
+  OS << stringifyZeroDefaultedArg(*SM, config->getArg(3));
+  // If there are ordinary arguments to the kernel, just copy them verbatim into our new call.
+  int numArgs = launchKernel->getNumArgs();
+  if (numArgs > 0) {
+    OS << "> ( ";
+    // Start of the first argument.
+    clang::SourceLocation argStart = llcompat::getBeginLoc(launchKernel->getArg(0));
+    // End of the last argument.
+    clang::SourceLocation argEnd = llcompat::getEndLoc(launchKernel->getArg(numArgs - 1));
+    OS << readSourceText(*SM, {argStart, argEnd});
+  }
+  OS << ")";
+  clang::SourceLocation launchKernelExprLocBeg = launchKernel->getExprLoc();
+  clang::SourceLocation launchKernelExprLocEnd = launchKernelExprLocBeg.isMacroID() ? llcompat::getEndOfExpansionRangeForLoc(*SM, launchKernelExprLocBeg) : llcompat::getEndLoc(launchKernel);
+  clang::SourceLocation launchKernelEnd = llcompat::getEndLoc(launchKernel);
+  clang::BeforeThanCompare<clang::SourceLocation> isBefore(*SM);
+  launchKernelExprLocEnd = isBefore(launchKernelEnd, launchKernelExprLocEnd) ? launchKernelExprLocEnd : launchKernelEnd;
+  clang::SourceRange replacementRange = getWriteRange(*SM, {launchKernelExprLocBeg, launchKernelExprLocEnd});
+  clang::SourceLocation launchBeg = replacementRange.getBegin();
+  clang::SourceLocation launchEnd = replacementRange.getEnd();
+  if (isBefore(launchBeg, launchEnd)) {
+    size_t length = SM->getCharacterData(clang::Lexer::getLocForEndOfToken(launchEnd, 0, *SM, DefaultLangOptions)) - SM->getCharacterData(launchBeg);
+    ct::Replacement Rep(*SM, launchBeg, length, OS.str());
+    clang::FullSourceLoc fullSL(launchBeg, *SM);
+    insertReplacement(Rep, fullSL);
+    hipCounter counter = {sHipLaunchKernelGGL, "", ConvTypes::CONV_KERNEL_LAUNCH, ApiTypes::API_RUNTIME};
+    Statistics::current().incrementCounter(counter, sCudaLaunchKernel.str());
+    return true;
+  }
+  return false;
+
+}
+
+bool HipifyAction::cudaKernelDefinition(const mat::MatchFinder::MatchResult &Result) {
+    const clang::FunctionDecl *kern = Result.Nodes.getNodeAs<clang::FunctionDecl>(sCudaKernelDefinition);
+    if ( kern ) {
+        if( kern->hasAttr<clang::CUDAGlobalAttr>() ) {
+            auto *SM = Result.SourceManager;
+            const clang::SourceRange sr = kern->getParametersSourceRange();
+            clang::SmallString<40> XStr;
+            llvm::raw_svector_ostream OS(XStr);
+
+            llvm::errs() << "rewritten cudaKernelDefinition from: " << kern->getDeclName().getAsString() << "(" << readSourceText(*SM, sr).str() << ");\n";
+
+            OS << "dim3 blocks, dim3 threadsPerBlock, dim3 threadIdx, " << readSourceText(*SM, sr).str();
+
+
+            clang::SourceRange replacementRange = getWriteRange(*SM, sr);
+            clang::SourceLocation launchBeg = replacementRange.getBegin();
+            clang::SourceLocation launchEnd = replacementRange.getEnd();
+            clang::LangOptions DefaultLangOptions;
+            size_t length = SM->getCharacterData(clang::Lexer::getLocForEndOfToken(launchEnd, 0, *SM, DefaultLangOptions)) - SM->getCharacterData(launchBeg);
+            ct::Replacement Rep(*SM, launchBeg, length, OS.str());
+            clang::FullSourceLoc fullSL(launchBeg, *SM);
+            insertReplacement(Rep, fullSL);
+
+
+
+            return true;
+        }
+    }
+    return false;
+}
+
 bool HipifyAction::cudaLaunchKernel(const mat::MatchFinder::MatchResult &Result) {
+  if( PlainKernelExecutionSyntax ) return this->plainLaunchKernel(Result);
   auto *launchKernel = Result.Nodes.getNodeAs<clang::CUDAKernelCallExpr>(sCudaLaunchKernel);
   if (!launchKernel) return false;
   auto *calleeExpr = launchKernel->getCallee();
@@ -3079,6 +3197,20 @@ std::unique_ptr<clang::ASTConsumer> HipifyAction::CreateASTConsumer(clang::Compi
     ).bind(sDataTypeSelection),
     this
   );
+
+  Finder->addMatcher(
+      mat::functionDecl(
+              mat::isExpansionInMainFile(),
+              mat::anyOf(
+                      mat::hasAttr(clang::attr::CUDADevice),
+                      mat::hasAttr(clang::attr::CUDAGlobal)
+              ),
+              mat::unless(mat::hasAttr(clang::attr::CUDAHost))
+      ).bind(sCudaKernelDefinition),
+      this
+  );
+
+//  Finder->add
   // Ownership is transferred to the caller.
   return Finder->newASTConsumer();
 }
@@ -3118,7 +3250,7 @@ void HipifyAction::EndSourceFileAction() {
       else                           sl = SM.getLocForStartOfFile(SM.getMainFileID());
     }
     clang::FullSourceLoc fullSL(sl, SM);
-    ct::Replacement Rep(SM, sl, 0, "\n#include <hip/hip_runtime.h>\n");
+    ct::Replacement Rep(SM, sl, 0, "\n#include <boschify.h>\n");
     insertReplacement(Rep, fullSL);
   }
   clang::ASTFrontendAction::EndSourceFileAction();
@@ -3208,6 +3340,8 @@ void HipifyAction::AddSkippedSourceRange(clang::SourceRange Range) {
 }
 
 void HipifyAction::run(const mat::MatchFinder::MatchResult &Result) {
+  if( cudaKernelDefinition(Result)) return;
+
   if (cudaLaunchKernel(Result)) return;
   if (cudaHostFuncCall(Result)) return;
   if (cudaOverloadedHostFuncCall(Result)) return;
@@ -3217,4 +3351,6 @@ void HipifyAction::run(const mat::MatchFinder::MatchResult &Result) {
   if (cubUsingNamespaceDecl(Result)) return;
   if (UseHipDataType && dataTypeSelection(Result)) return;
   if (!NoUndocumented && half2Member(Result)) return;
+
+
 }

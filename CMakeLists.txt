@@ -91,6 +91,7 @@ if (NOT HIPIFY_CLANG_TESTS_ONLY)
     clangASTMatchers
     clangFrontend
     clangTooling
+    clangTransformer
     clangParse
     clangSerialization
     clangSema

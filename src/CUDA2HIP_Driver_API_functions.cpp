@@ -211,7 +211,7 @@ const std::map<llvm::StringRef, hipCounter> CUDA_DRIVER_FUNCTION_MAP {
   // cudaIpcOpenMemHandle
   {"cuIpcOpenMemHandle",                                   {"hipIpcOpenMemHandle",                                     "", CONV_MEMORY, API_DRIVER, SEC::MEMORY}},
   // cudaMalloc
-  {"cuMemAlloc",                                           {"hipMalloc",                                               "", CONV_MEMORY, API_DRIVER, SEC::MEMORY}},
+  {"cuMemAlloc",                                           {"boschifyMalloc",                                               "", CONV_MEMORY, API_DRIVER, SEC::MEMORY}},
   {"cuMemAlloc_v2",                                        {"hipMalloc",                                               "", CONV_MEMORY, API_DRIVER, SEC::MEMORY}},
   //
   {"cuMemAllocHost",                                       {"hipMemAllocHost",                                         "", CONV_MEMORY, API_DRIVER, SEC::MEMORY}},

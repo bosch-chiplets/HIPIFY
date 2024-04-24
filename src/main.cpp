@@ -42,6 +42,16 @@ THE SOFTWARE.
 #include "clang/Driver/Tool.h"
 #include "clang/Frontend/TextDiagnosticPrinter.h"
 
+//#include "clang/Tooling/Transformer/Transformer.h"
+//#include "clang/Tooling/Transformer/RewriteRule.h"
+//#include "clang/Tooling/Transformer/Stencil.h"
+//#include "clang/ASTMatchers/ASTMatchFinder.h"
+//#include "clang/Frontend/CompilerInstance.h"
+//#include "clang/ASTMatchers/ASTMatchFinder.h"
+//#include "clang/ASTMatchers/ASTMatchers.h"
+//#include "clang/Basic/SourceLocation.h"
+
+
 #if LLVM_VERSION_MAJOR < 8
 #include "llvm/Support/Path.h"
 #endif
@@ -52,6 +62,7 @@ THE SOFTWARE.
 constexpr auto DEBUG_TYPE = "cuda2hip";
 
 namespace ct = clang::tooling;
+//namespace cs = clang::transformer;
 
 void cleanupHipifyOptions(std::vector<const char*> &args) {
   for (const auto &a : hipifyOptions) {
@@ -222,6 +233,36 @@ void printVersions() {
   llvm::errs() << "\n" << sHipify << "Supports CUDA Toolkit from " << Statistics::getCudaVersion(cudaVersions::CUDA_70) << " up to " << Statistics::getCudaVersion(cudaVersions::CUDA_LATEST);
   llvm::errs() << "\n" << sHipify << "Supports cuDNN from " << Statistics::getCudaVersion(cudaVersions::CUDNN_705) << " up to " << Statistics::getCudaVersion(cudaVersions::CUDNN_LATEST) << " \n";
 }
+
+//namespace mat = clang::ast_matchers;
+
+//void test_transformers() {
+////    auto r = cs::makeRule(mat::functionDecl(), cs::cat("Fooobar"));
+//
+//    auto r = makeRule(mat::functionDecl(mat::hasName("vector_square")),
+//             cs::changeTo(cs::cat("MakeX")),
+//             cs::cat("MkX has been renamed MakeX"));
+//
+////    auto r = cs::makeRule(
+////
+////            mat::callExpr(
+////                    mat::isExpansionInMainFile(),
+////                    mat::callee(
+////                            mat::functionDecl(
+////                                    mat::anyOf(
+////                                            mat::hasAttr(clang::attr::CUDADevice),
+////                                            mat::hasAttr(clang::attr::CUDAGlobal)
+////                                    ),
+////                                    mat::unless(mat::hasAttr(clang::attr::CUDAHost))
+////                            )
+////                    )
+////            ).bind(sCudaDeviceFuncCall),
+////
+//////            mat::functionDecl(mat::hasName("MkX").bind("fun"),
+////
+////                          cs::noopEdit(cs::node("fun")),
+////                          cs::cat("The name ``MkX`` is not allowed for functions; please rename")));
+//}
 
 int main(int argc, const char **argv) {
   std::vector<const char*> new_argv(argv, argv + argc);
@@ -430,6 +471,9 @@ int main(int argc, const char **argv) {
       Result = 1;
       break;
     }
+
+//    test_transformers();
+
     Statistics &currentStat = Statistics::current();
     // Hipify _all_ the things!
     if (Tool.runAndSave(&actionFactory)) {

@@ -209,6 +209,11 @@ cl::opt<bool> HipKernelExecutionSyntax("hip-kernel-execution-syntax",
   cl::value_desc("hip-kernel-execution-syntax"),
   cl::cat(ToolTemplateCategory));
 
+cl::opt<bool> PlainKernelExecutionSyntax("plain-kernel-execution-syntax",
+  cl::desc("Transform CUDA kernel launch syntax to a plain C++ function call (overrides '--cuda-kernel-execution-syntax' and '--hip-kernel-execution-syntax')"),
+  cl::value_desc("plain-kernel-execution-syntax"),
+  cl::cat(ToolTemplateCategory));
+
 cl::opt<bool> Versions("versions",
   cl::desc("Display the versions of the supported 3rd-party software"),
   cl::value_desc("versions"),
@@ -227,6 +232,12 @@ cl::opt<std::string> ClangResourceDir("clang-resource-directory",
   cl::ZeroOrMore,
   cl::cat(ToolTemplateCategory));
 
+cl::opt<bool> SourceOnly("source-only",
+  cl::desc("Performs a source to source tranlation only. I.e., does not try to compile the transformed code directly."),
+  cl::value_desc("source-only"),
+  cl::ZeroOrMore,
+  cl::cat(ToolTemplateCategory));
+
 cl::extrahelp CommonHelp(ct::CommonOptionsParser::HelpMessage);
 
 const std::vector<std::string> hipifyOptions {
@@ -236,6 +247,7 @@ const std::vector<std::string> hipifyOptions {
   std::string(DefaultPreprocessor.ArgStr),
   std::string(HipKernelExecutionSyntax.ArgStr),
   std::string(CudaKernelExecutionSyntax.ArgStr),
+  std::string(PlainKernelExecutionSyntax.ArgStr),
   std::string(GeneratePerl.ArgStr),
   std::string(GeneratePython.ArgStr),
   std::string(TranslateToRoc.ArgStr),
@@ -255,6 +267,7 @@ const std::vector<std::string> hipifyOptions {
   std::string(NoWarningsUndocumented.ArgStr),
   std::string(HipifyAMAP.ArgStr),
   std::string(ClangResourceDir.ArgStr),
+  std::string(SourceOnly.ArgStr)
 };
 
 const std::vector<std::string> hipifyOptionsWithTwoArgs {

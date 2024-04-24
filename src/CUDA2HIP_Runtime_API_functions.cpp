@@ -68,7 +68,7 @@ const std::map<llvm::StringRef, hipCounter> CUDA_RUNTIME_FUNCTION_MAP {
   {"cudaGetDeviceFlags",                                      {"hipGetDeviceFlags",                                      "", CONV_DEVICE, API_RUNTIME, SEC::DEVICE}},
   // no analogue
   // NOTE: Not equal to cuDeviceGetProperties due to different attributes: CUdevprop and cudaDeviceProp
-  {"cudaGetDeviceProperties",                                 {"hipGetDeviceProperties",                                 "", CONV_DEVICE, API_RUNTIME, SEC::DEVICE}},
+  {"cudaGetDeviceProperties",                                 {"boschifyGetDeviceProperties",                            "", CONV_DEVICE, API_RUNTIME, SEC::DEVICE}},
   // cuIpcCloseMemHandle
   {"cudaIpcCloseMemHandle",                                   {"hipIpcCloseMemHandle",                                   "", CONV_DEVICE, API_RUNTIME, SEC::DEVICE}},
   // cuIpcGetEventHandle
