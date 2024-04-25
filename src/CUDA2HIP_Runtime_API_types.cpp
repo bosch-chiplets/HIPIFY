@@ -94,10 +94,10 @@ const std::map<llvm::StringRef, hipCounter> CUDA_RUNTIME_TYPE_NAME_MAP {
 
   // no analogue
   // NOTE: HIP struct is bigger and contains cudaMemcpy3DParms only in the beginning
-  {"cudaMemcpy3DParms",                                                {"hipMemcpy3DParms",                                         "", CONV_TYPE, API_RUNTIME, SEC::DATA_TYPES}},
+  {"cudaMemcpy3DParms",                                                {"boschifyMemcpy3DParms",                                    "", CONV_TYPE, API_RUNTIME, SEC::DATA_TYPES}},
 
   // no analogue
-  {"cudaMemcpy3DPeerParms",                                            {"hipMemcpy3DPeerParms",                                     "", CONV_TYPE, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}},
+  {"cudaMemcpy3DPeerParms",                                            {"boschifyMemcpy3DPeerParms",                                "", CONV_TYPE, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}},
 
   // CUDA_MEMSET_NODE_PARAMS
   {"cudaMemsetParams",                                                 {"hipMemsetParams",                                          "", CONV_TYPE, API_RUNTIME, SEC::DATA_TYPES}},
@@ -258,7 +258,7 @@ const std::map<llvm::StringRef, hipCounter> CUDA_RUNTIME_TYPE_NAME_MAP {
   {"cudaKernel_t",                                                     {"hipKernel",                                                "", CONV_TYPE, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}},
 
   // CUDA_MEMCPY_NODE_PARAMS
-  {"cudaMemcpyNodeParams",                                             {"hipMemcpyNodeParams",                                      "", CONV_TYPE, API_RUNTIME, SEC::DATA_TYPES, HIP_EXPERIMENTAL}},
+  {"cudaMemcpyNodeParams",                                             {"boschifyMemcpyNodeParams",                                 "", CONV_TYPE, API_RUNTIME, SEC::DATA_TYPES, HIP_EXPERIMENTAL}},
 
   // CUDA_CONDITIONAL_NODE_PARAMS
   {"cudaConditionalNodeParams",                                        {"hipConditionalNodeParams",                                 "", CONV_TYPE, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}},
@@ -1303,13 +1303,13 @@ const std::map<llvm::StringRef, hipCounter> CUDA_RUNTIME_TYPE_NAME_MAP {
   {"cudaLimitPersistingL2CacheSize",                                   {"hipLimitPersistingL2CacheSize",                            "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 0x06
 
   // no analogue
-  {"cudaMemcpyKind",                                                   {"hipMemcpyKind",                                            "", CONV_TYPE, API_RUNTIME, SEC::DATA_TYPES}},
+  {"cudaMemcpyKind",                                                   {"boschifyMemcpyKind",                                       "", CONV_TYPE, API_RUNTIME, SEC::DATA_TYPES}},
   // cudaMemcpyKind enum values
-  {"cudaMemcpyHostToHost",                                             {"hipMemcpyHostToHost",                                      "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 0
-  {"cudaMemcpyHostToDevice",                                           {"hipMemcpyHostToDevice",                                    "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 1
-  {"cudaMemcpyDeviceToHost",                                           {"hipMemcpyDeviceToHost",                                    "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 2
-  {"cudaMemcpyDeviceToDevice",                                         {"hipMemcpyDeviceToDevice",                                  "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 3
-  {"cudaMemcpyDefault",                                                {"hipMemcpyDefault",                                         "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 4
+  {"cudaMemcpyHostToHost",                                             {"boschifyMemcpyHostToHost",                                 "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 0
+  {"cudaMemcpyHostToDevice",                                           {"boschifyMemcpyHostToDevice",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 1
+  {"cudaMemcpyDeviceToHost",                                           {"boschifyMemcpyDeviceToHost",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 2
+  {"cudaMemcpyDeviceToDevice",                                         {"boschifyMemcpyDeviceToDevice",                             "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 3
+  {"cudaMemcpyDefault",                                                {"boschifyMemcpyDefault",                                    "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 4
 
   // CUmem_advise
   {"cudaMemoryAdvise",                                                 {"hipMemoryAdvise",                                          "", CONV_TYPE, API_RUNTIME, SEC::DATA_TYPES}},
@@ -2730,16 +2730,16 @@ const std::map<llvm::StringRef, hipAPIversions> HIP_RUNTIME_TYPE_NAME_VER_MAP {
   {"hipResViewFormatUnsignedBlockCompressed7",                         {HIP_1070, HIP_0,    HIP_0   }},
   {"hipResourceDesc",                                                  {HIP_1070, HIP_0,    HIP_0   }},
   {"hipResourceViewDesc",                                              {HIP_1070, HIP_0,    HIP_0   }},
-  {"hipMemcpyKind",                                                    {HIP_1050, HIP_0,    HIP_0   }},
-  {"hipMemcpyHostToHost",                                              {HIP_1050, HIP_0,    HIP_0   }},
-  {"hipMemcpyHostToDevice",                                            {HIP_1050, HIP_0,    HIP_0   }},
-  {"hipMemcpyDeviceToHost",                                            {HIP_1050, HIP_0,    HIP_0   }},
-  {"hipMemcpyDeviceToDevice",                                          {HIP_1050, HIP_0,    HIP_0   }},
-  {"hipMemcpyDefault",                                                 {HIP_1050, HIP_0,    HIP_0   }},
+  {"boschifyMemcpyKind",                                               {HIP_1050, HIP_0,    HIP_0   }},
+  {"boschifyMemcpyHostToHost",                                         {HIP_1050, HIP_0,    HIP_0   }},
+  {"boschifyMemcpyHostToDevice",                                       {HIP_1050, HIP_0,    HIP_0   }},
+  {"boschifyMemcpyDeviceToHost",                                       {HIP_1050, HIP_0,    HIP_0   }},
+  {"boschifyMemcpyDeviceToDevice",                                     {HIP_1050, HIP_0,    HIP_0   }},
+  {"boschifyMemcpyDefault",                                            {HIP_1050, HIP_0,    HIP_0   }},
   {"hipPitchedPtr",                                                    {HIP_1070, HIP_0,    HIP_0   }},
   {"hipExtent",                                                        {HIP_1070, HIP_0,    HIP_0   }},
   {"hipPos",                                                           {HIP_1070, HIP_0,    HIP_0   }},
-  {"hipMemcpy3DParms",                                                 {HIP_1070, HIP_0,    HIP_0   }},
+  {"boschifyMemcpy3DParms",                                            {HIP_1070, HIP_0,    HIP_0   }},
   {"hipTextureAddressMode",                                            {HIP_1070, HIP_0,    HIP_0   }},
   {"hipAddressModeWrap",                                               {HIP_1070, HIP_0,    HIP_0   }},
   {"hipAddressModeClamp",                                              {HIP_1070, HIP_0,    HIP_0   }},
@@ -2922,7 +2922,7 @@ const std::map<llvm::StringRef, hipAPIversions> HIP_RUNTIME_TYPE_NAME_VER_MAP {
   {"hipGraphInstantiateNodeOperationNotSupported",                     {HIP_6010, HIP_0,    HIP_0,  HIP_LATEST}},
   {"hipGraphInstantiateMultipleDevicesNotSupported",                   {HIP_6010, HIP_0,    HIP_0,  HIP_LATEST}},
   {"hipGraphInstantiateParams",                                        {HIP_6010, HIP_0,    HIP_0,  HIP_LATEST}},
-  {"hipMemcpyNodeParams",                                              {HIP_6010, HIP_0,    HIP_0,  HIP_LATEST}},
+  {"boschifyMemcpyNodeParams",                                         {HIP_6010, HIP_0,    HIP_0,  HIP_LATEST}},
   {"hipChildGraphNodeParams",                                          {HIP_6010, HIP_0,    HIP_0,  HIP_LATEST}},
   {"hipEventWaitNodeParams",                                           {HIP_6010, HIP_0,    HIP_0,  HIP_LATEST}},
   {"hipEventRecordNodeParams",                                         {HIP_6010, HIP_0,    HIP_0,  HIP_LATEST}},
