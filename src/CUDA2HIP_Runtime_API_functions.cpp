@@ -116,7 +116,7 @@ const std::map<llvm::StringRef, hipCounter> CUDA_RUNTIME_FUNCTION_MAP {
   {"cudaGetErrorName",                                        {"hipGetErrorName",                                        "", CONV_ERROR, API_RUNTIME, SEC::ERROR}},
   // no analogue
   // NOTE: cudaGetErrorString and cuGetErrorString have different signatures
-  {"cudaGetErrorString",                                      {"hipGetErrorString",                                      "", CONV_ERROR, API_RUNTIME, SEC::ERROR}},
+  {"cudaGetErrorString",                                      {"boschifyGetErrorString",                                 "", CONV_ERROR, API_RUNTIME, SEC::ERROR}},
   // no analogue
   {"cudaGetLastError",                                        {"hipGetLastError",                                        "", CONV_ERROR, API_RUNTIME, SEC::ERROR}},
   // no analogue
@@ -299,7 +299,7 @@ const std::map<llvm::StringRef, hipCounter> CUDA_RUNTIME_FUNCTION_MAP {
   // cuMemHostUnregister
   {"cudaHostUnregister",                                      {"hipHostUnregister",                                      "", CONV_MEMORY, API_RUNTIME, SEC::MEMORY}},
   // cuMemAlloc
-  {"cudaMalloc",                                              {"hipMalloc",                                              "", CONV_MEMORY, API_RUNTIME, SEC::MEMORY}},
+  {"cudaMalloc",                                              {"boschifyMalloc",                                         "", CONV_MEMORY, API_RUNTIME, SEC::MEMORY}},
   // no analogue
   {"cudaMalloc3D",                                            {"hipMalloc3D",                                            "", CONV_MEMORY, API_RUNTIME, SEC::MEMORY}},
   // no analogue
@@ -322,7 +322,7 @@ const std::map<llvm::StringRef, hipCounter> CUDA_RUNTIME_FUNCTION_MAP {
   {"cudaMemAdvise_v2",                                        {"hipMemAdvise_v2",                                        "", CONV_MEMORY, API_RUNTIME, SEC::MEMORY, HIP_UNSUPPORTED}},
   // no analogue
   // NOTE: Not equal to cuMemcpy due to different signatures
-  {"cudaMemcpy",                                              {"hipMemcpy",                                              "", CONV_MEMORY, API_RUNTIME, SEC::MEMORY}},
+  {"cudaMemcpy",                                              {"boschifyMemcpy",                                         "", CONV_MEMORY, API_RUNTIME, SEC::MEMORY}},
   // no analogue
   // NOTE: Not equal to cuMemcpy2D due to different signatures
   {"cudaMemcpy2D",                                            {"hipMemcpy2D",                                            "", CONV_MEMORY, API_RUNTIME, SEC::MEMORY}},
@@ -1186,7 +1186,7 @@ const std::map<llvm::StringRef, hipAPIversions> HIP_RUNTIME_FUNCTION_VER_MAP {
   {"hipDeviceReset",                                          {HIP_1060, HIP_0,    HIP_0   }},
   {"hipDeviceGetCacheConfig",                                 {HIP_1060, HIP_0,    HIP_0   }},
   {"hipGetErrorName",                                         {HIP_1060, HIP_0,    HIP_0   }},
-  {"hipGetErrorString",                                       {HIP_1060, HIP_0,    HIP_0   }},
+  {"boschifyGetErrorString",                                  {HIP_1060, HIP_0,    HIP_0   }},
   {"hipGetLastError",                                         {HIP_1060, HIP_0,    HIP_0   }},
   {"hipPeekAtLastError",                                      {HIP_1060, HIP_0,    HIP_0   }},
   {"hipStreamAddCallback",                                    {HIP_1060, HIP_0,    HIP_0   }},

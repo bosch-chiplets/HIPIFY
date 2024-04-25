@@ -32,7 +32,7 @@ const std::map<llvm::StringRef, hipCounter> CUDA_RUNTIME_TYPE_NAME_MAP {
   // no analogue
   {"cudaChannelFormatDesc",                                            {"hipChannelFormatDesc",                                     "", CONV_TYPE, API_RUNTIME, SEC::DATA_TYPES}},
   // no analogue
-  {"cudaDeviceProp",                                                   {"hipDeviceProp_t",                                          "", CONV_TYPE, API_RUNTIME, SEC::DATA_TYPES}},
+  {"cudaDeviceProp",                                                   {"boschifyDeviceProp_t",                                     "", CONV_TYPE, API_RUNTIME, SEC::DATA_TYPES}},
 
   // no analogue
   {"cudaEglFrame",                                                     {"hipEglFrame",                                              "", CONV_TYPE, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}},
@@ -836,280 +836,280 @@ const std::map<llvm::StringRef, hipCounter> CUDA_RUNTIME_TYPE_NAME_MAP {
   {"cudaEglResourceLocationVidmem",                                    {"hipEglResourceLocationVidmem",                             "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 0x01
 
   // CUresult
-  {"cudaError",                                                        {"hipError_t",                                               "", CONV_TYPE, API_RUNTIME, SEC::DATA_TYPES}},
-  {"cudaError_t",                                                      {"hipError_t",                                               "", CONV_TYPE, API_RUNTIME, SEC::DATA_TYPES}},
+  {"cudaError",                                                        {"boschifyError_t",                                          "", CONV_TYPE, API_RUNTIME, SEC::DATA_TYPES}},
+  {"cudaError_t",                                                      {"boschifyError_t",                                          "", CONV_TYPE, API_RUNTIME, SEC::DATA_TYPES}},
   // cudaError enum values
   // CUDA_SUCCESS
-  {"cudaSuccess",                                                      {"hipSuccess",                                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 0
+  {"cudaSuccess",                                                      {"boschifySuccess",                                          "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 0
   // CUDA_ERROR_INVALID_VALUE
-  {"cudaErrorInvalidValue",                                            {"hipErrorInvalidValue",                                     "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 1
+  {"cudaErrorInvalidValue",                                            {"boschifyErrorInvalidValue",                                "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 1
   // CUDA_ERROR_OUT_OF_MEMORY
-  {"cudaErrorMemoryAllocation",                                        {"hipErrorOutOfMemory",                                      "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 2
+  {"cudaErrorMemoryAllocation",                                        {"boschifyErrorOutOfMemory",                                 "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 2
   // CUDA_ERROR_NOT_INITIALIZED
-  {"cudaErrorInitializationError",                                     {"hipErrorNotInitialized",                                   "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 3
+  {"cudaErrorInitializationError",                                     {"boschifyErrorNotInitialized",                              "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 3
   // CUDA_ERROR_DEINITIALIZED
-  {"cudaErrorCudartUnloading",                                         {"hipErrorDeinitialized",                                    "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 4
+  {"cudaErrorCudartUnloading",                                         {"boschifyErrorDeinitialized",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 4
   // CUDA_ERROR_PROFILER_DISABLED
-  {"cudaErrorProfilerDisabled",                                        {"hipErrorProfilerDisabled",                                 "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 5
+  {"cudaErrorProfilerDisabled",                                        {"boschifyErrorProfilerDisabled",                            "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 5
   // Deprecated since CUDA 5.0
   // CUDA_ERROR_PROFILER_NOT_INITIALIZED
-  {"cudaErrorProfilerNotInitialized",                                  {"hipErrorProfilerNotInitialized",                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, CUDA_DEPRECATED}}, // 6
+  {"cudaErrorProfilerNotInitialized",                                  {"boschifyErrorProfilerNotInitialized",                      "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, CUDA_DEPRECATED}}, // 6
   // Deprecated since CUDA 5.0
   // CUDA_ERROR_PROFILER_ALREADY_STARTED
-  {"cudaErrorProfilerAlreadyStarted",                                  {"hipErrorProfilerAlreadyStarted",                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, CUDA_DEPRECATED}}, // 7
+  {"cudaErrorProfilerAlreadyStarted",                                  {"boschifyErrorProfilerAlreadyStarted",                      "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, CUDA_DEPRECATED}}, // 7
   // Deprecated since CUDA 5.0
   // CUDA_ERROR_PROFILER_ALREADY_STOPPED
-  {"cudaErrorProfilerAlreadyStopped",                                  {"hipErrorProfilerAlreadyStopped",                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, CUDA_DEPRECATED}}, // 8
+  {"cudaErrorProfilerAlreadyStopped",                                  {"boschifyErrorProfilerAlreadyStopped",                      "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, CUDA_DEPRECATED}}, // 8
   // no analogue
-  {"cudaErrorInvalidConfiguration",                                    {"hipErrorInvalidConfiguration",                             "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 9
+  {"cudaErrorInvalidConfiguration",                                    {"boschifyErrorInvalidConfiguration",                        "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 9
   // no analogue
-  {"cudaErrorInvalidPitchValue",                                       {"hipErrorInvalidPitchValue",                                "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 12
+  {"cudaErrorInvalidPitchValue",                                       {"boschifyErrorInvalidPitchValue",                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 12
   // no analogue
-  {"cudaErrorInvalidSymbol",                                           {"hipErrorInvalidSymbol",                                    "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 13
+  {"cudaErrorInvalidSymbol",                                           {"boschifyErrorInvalidSymbol",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 13
   // Deprecated since CUDA 10.1
   // no analogue
-  {"cudaErrorInvalidHostPointer",                                      {"hipErrorInvalidHostPointer",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED | CUDA_DEPRECATED}}, // 16
+  {"cudaErrorInvalidHostPointer",                                      {"boschifyErrorInvalidHostPointer",                          "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED | CUDA_DEPRECATED}}, // 16
   // Deprecated since CUDA 10.1
   // no analogue
-  {"cudaErrorInvalidDevicePointer",                                    {"hipErrorInvalidDevicePointer",                             "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, CUDA_DEPRECATED}}, // 17
+  {"cudaErrorInvalidDevicePointer",                                    {"boschifyErrorInvalidDevicePointer",                        "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, CUDA_DEPRECATED}}, // 17
   // no analogue
-  {"cudaErrorInvalidTexture",                                          {"hipErrorInvalidTexture",                                   "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 18
+  {"cudaErrorInvalidTexture",                                          {"boschifyErrorInvalidTexture",                              "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 18
   // no analogue
-  {"cudaErrorInvalidTextureBinding",                                   {"hipErrorInvalidTextureBinding",                            "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 19
+  {"cudaErrorInvalidTextureBinding",                                   {"boschifyErrorInvalidTextureBinding",                       "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 19
   // no analogue
-  {"cudaErrorInvalidChannelDescriptor",                                {"hipErrorInvalidChannelDescriptor",                         "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 20
+  {"cudaErrorInvalidChannelDescriptor",                                {"boschifyErrorInvalidChannelDescriptor",                    "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 20
   // no analogue
-  {"cudaErrorInvalidMemcpyDirection",                                  {"hipErrorInvalidMemcpyDirection",                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 21
+  {"cudaErrorInvalidMemcpyDirection",                                  {"boschifyErrorInvalidMemcpyDirection",                      "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 21
   // Deprecated since CUDA 3.1
   // no analogue
-  {"cudaErrorAddressOfConstant",                                       {"hipErrorAddressOfConstant",                                "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED | CUDA_DEPRECATED}}, // 22
+  {"cudaErrorAddressOfConstant",                                       {"boschifyErrorAddressOfConstant",                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED | CUDA_DEPRECATED}}, // 22
   // Deprecated since CUDA 3.1
   // no analogue
-  {"cudaErrorTextureFetchFailed",                                      {"hipErrorTextureFetchFailed",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED | CUDA_DEPRECATED}}, // 23
+  {"cudaErrorTextureFetchFailed",                                      {"boschifyErrorTextureFetchFailed",                          "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED | CUDA_DEPRECATED}}, // 23
   // Deprecated since CUDA 3.1
   // no analogue
-  {"cudaErrorTextureNotBound",                                         {"hipErrorTextureNotBound",                                  "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED | CUDA_DEPRECATED}}, // 24
+  {"cudaErrorTextureNotBound",                                         {"boschifyErrorTextureNotBound",                             "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED | CUDA_DEPRECATED}}, // 24
   // Deprecated since CUDA 3.1
   // no analogue
-  {"cudaErrorSynchronizationError",                                    {"hipErrorSynchronizationError",                             "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED | CUDA_DEPRECATED}}, // 25
+  {"cudaErrorSynchronizationError",                                    {"boschifyErrorSynchronizationError",                        "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED | CUDA_DEPRECATED}}, // 25
   // no analogue
-  {"cudaErrorInvalidFilterSetting",                                    {"hipErrorInvalidFilterSetting",                             "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 26
+  {"cudaErrorInvalidFilterSetting",                                    {"boschifyErrorInvalidFilterSetting",                        "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 26
   // no analogue
-  {"cudaErrorInvalidNormSetting",                                      {"hipErrorInvalidNormSetting",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 27
+  {"cudaErrorInvalidNormSetting",                                      {"boschifyErrorInvalidNormSetting",                          "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 27
   // Deprecated since CUDA 3.1
   // no analogue
-  {"cudaErrorMixedDeviceExecution",                                    {"hipErrorMixedDeviceExecution",                             "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED | CUDA_DEPRECATED}}, // 28
+  {"cudaErrorMixedDeviceExecution",                                    {"boschifyErrorMixedDeviceExecution",                        "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED | CUDA_DEPRECATED}}, // 28
   // Deprecated since CUDA 4.1
   // no analogue
-  {"cudaErrorNotYetImplemented",                                       {"hipErrorNotYetImplemented",                                "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED | CUDA_DEPRECATED}}, // 31
+  {"cudaErrorNotYetImplemented",                                       {"boschifyErrorNotYetImplemented",                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED | CUDA_DEPRECATED}}, // 31
   // Deprecated since CUDA 3.1
   // no analogue
-  {"cudaErrorMemoryValueTooLarge",                                     {"hipErrorMemoryValueTooLarge",                              "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED | CUDA_DEPRECATED}}, // 32
+  {"cudaErrorMemoryValueTooLarge",                                     {"boschifyErrorMemoryValueTooLarge",                         "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED | CUDA_DEPRECATED}}, // 32
   // CUDA_ERROR_STUB_LIBRARY
-  {"cudaErrorStubLibrary",                                             {"hipErrorStubLibrary",                                      "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 34
+  {"cudaErrorStubLibrary",                                             {"boschifyErrorStubLibrary",                                 "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 34
   // no analogue
-  {"cudaErrorInsufficientDriver",                                      {"hipErrorInsufficientDriver",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 35
+  {"cudaErrorInsufficientDriver",                                      {"boschifyErrorInsufficientDriver",                          "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 35
   // no analogue
-  {"cudaErrorCallRequiresNewerDriver",                                 {"hipErrorCallRequiresNewerDriver",                          "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 36
+  {"cudaErrorCallRequiresNewerDriver",                                 {"boschifyErrorCallRequiresNewerDriver",                     "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 36
   // no analogue
-  {"cudaErrorInvalidSurface",                                          {"hipErrorInvalidSurface",                                   "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 37
+  {"cudaErrorInvalidSurface",                                          {"boschifyErrorInvalidSurface",                              "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 37
   // no analogue
-  {"cudaErrorDuplicateVariableName",                                   {"hipErrorDuplicateVariableName",                            "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 43
+  {"cudaErrorDuplicateVariableName",                                   {"boschifyErrorDuplicateVariableName",                       "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 43
   // no analogue
-  {"cudaErrorDuplicateTextureName",                                    {"hipErrorDuplicateTextureName",                             "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 44
+  {"cudaErrorDuplicateTextureName",                                    {"boschifyErrorDuplicateTextureName",                        "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 44
   // no analogue
-  {"cudaErrorDuplicateSurfaceName",                                    {"hipErrorDuplicateSurfaceName",                             "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 45
+  {"cudaErrorDuplicateSurfaceName",                                    {"boschifyErrorDuplicateSurfaceName",                        "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 45
   // no analogue
-  {"cudaErrorDevicesUnavailable",                                      {"hipErrorDevicesUnavailable",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 46
+  {"cudaErrorDevicesUnavailable",                                      {"boschifyErrorDevicesUnavailable",                          "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 46
   // no analogue
-  {"cudaErrorIncompatibleDriverContext",                               {"hipErrorIncompatibleDriverContext",                        "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 49
+  {"cudaErrorIncompatibleDriverContext",                               {"boschifyErrorIncompatibleDriverContext",                   "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 49
   // no analogue
-  {"cudaErrorMissingConfiguration",                                    {"hipErrorMissingConfiguration",                             "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 52
+  {"cudaErrorMissingConfiguration",                                    {"boschifyErrorMissingConfiguration",                        "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 52
   // Deprecated since CUDA 3.1
   // no analogue
-  {"cudaErrorPriorLaunchFailure",                                      {"hipErrorPriorLaunchFailure",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, CUDA_DEPRECATED}}, // 53
+  {"cudaErrorPriorLaunchFailure",                                      {"boschifyErrorPriorLaunchFailure",                          "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, CUDA_DEPRECATED}}, // 53
   // no analogue
-  {"cudaErrorLaunchMaxDepthExceeded",                                  {"hipErrorLaunchMaxDepthExceeded",                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 65
+  {"cudaErrorLaunchMaxDepthExceeded",                                  {"boschifyErrorLaunchMaxDepthExceeded",                      "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 65
   // no analogue
-  {"cudaErrorLaunchFileScopedTex",                                     {"hipErrorLaunchFileScopedTex",                              "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 66
+  {"cudaErrorLaunchFileScopedTex",                                     {"boschifyErrorLaunchFileScopedTex",                         "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 66
   // no analogue
-  {"cudaErrorLaunchFileScopedSurf",                                    {"hipErrorLaunchFileScopedSurf",                             "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 67
+  {"cudaErrorLaunchFileScopedSurf",                                    {"boschifyErrorLaunchFileScopedSurf",                        "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 67
   // no analogue
-  {"cudaErrorSyncDepthExceeded",                                       {"hipErrorSyncDepthExceeded",                                "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 68
+  {"cudaErrorSyncDepthExceeded",                                       {"boschifyErrorSyncDepthExceeded",                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 68
   // no analogue
-  {"cudaErrorLaunchPendingCountExceeded",                              {"hipErrorLaunchPendingCountExceeded",                       "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 69
+  {"cudaErrorLaunchPendingCountExceeded",                              {"boschifyErrorLaunchPendingCountExceeded",                  "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 69
   // no analogue
-  {"cudaErrorInvalidDeviceFunction",                                   {"hipErrorInvalidDeviceFunction",                            "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 98
+  {"cudaErrorInvalidDeviceFunction",                                   {"boschifyErrorInvalidDeviceFunction",                       "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 98
   // CUDA_ERROR_NO_DEVICE
-  {"cudaErrorNoDevice",                                                {"hipErrorNoDevice",                                         "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 100
+  {"cudaErrorNoDevice",                                                {"boschifyErrorNoDevice",                                    "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 100
   // CUDA_ERROR_INVALID_DEVICE
-  {"cudaErrorInvalidDevice",                                           {"hipErrorInvalidDevice",                                    "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 101
+  {"cudaErrorInvalidDevice",                                           {"boschifyErrorInvalidDevice",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 101
   // CUDA_ERROR_DEVICE_NOT_LICENSED
-  {"cudaErrorDeviceNotLicensed",                                       {"hipErrorDeviceNotLicensed",                                "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 102
+  {"cudaErrorDeviceNotLicensed",                                       {"boschifyErrorDeviceNotLicensed",                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 102
   // no analogue
-  {"cudaErrorSoftwareValidityNotEstablished",                          {"hipErrorSoftwareValidityNotEstablished",                   "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 103
+  {"cudaErrorSoftwareValidityNotEstablished",                          {"boschifyErrorSoftwareValidityNotEstablished",              "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 103
   // no analogue
-  {"cudaErrorStartupFailure",                                          {"hipErrorStartupFailure",                                   "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 127
+  {"cudaErrorStartupFailure",                                          {"boschifyErrorStartupFailure",                              "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 127
   // CUDA_ERROR_INVALID_IMAGE
-  {"cudaErrorInvalidKernelImage",                                      {"hipErrorInvalidImage",                                     "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 200
+  {"cudaErrorInvalidKernelImage",                                      {"boschifyErrorInvalidImage",                                "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 200
   // CUDA_ERROR_INVALID_CONTEXT
-  {"cudaErrorDeviceUninitialized",                                     {"hipErrorInvalidContext",                                   "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 201
+  {"cudaErrorDeviceUninitialized",                                     {"boschifyErrorInvalidContext",                              "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 201
   // CUDA_ERROR_MAP_FAILED
-  {"cudaErrorMapBufferObjectFailed",                                   {"hipErrorMapFailed",                                        "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 205
+  {"cudaErrorMapBufferObjectFailed",                                   {"boschifyErrorMapFailed",                                   "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 205
   // CUDA_ERROR_UNMAP_FAILED
-  {"cudaErrorUnmapBufferObjectFailed",                                 {"hipErrorUnmapFailed",                                      "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 206
+  {"cudaErrorUnmapBufferObjectFailed",                                 {"boschifyErrorUnmapFailed",                                 "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 206
   // CUDA_ERROR_ARRAY_IS_MAPPED
-  {"cudaErrorArrayIsMapped",                                           {"hipErrorArrayIsMapped",                                    "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 207
+  {"cudaErrorArrayIsMapped",                                           {"boschifyErrorArrayIsMapped",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 207
   // CUDA_ERROR_ALREADY_MAPPED
-  {"cudaErrorAlreadyMapped",                                           {"hipErrorAlreadyMapped",                                    "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 208
+  {"cudaErrorAlreadyMapped",                                           {"boschifyErrorAlreadyMapped",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 208
   // CUDA_ERROR_NO_BINARY_FOR_GPU
-  {"cudaErrorNoKernelImageForDevice",                                  {"hipErrorNoBinaryForGpu",                                   "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 209
+  {"cudaErrorNoKernelImageForDevice",                                  {"boschifyErrorNoBinaryForGpu",                              "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 209
   // CUDA_ERROR_ALREADY_ACQUIRED
-  {"cudaErrorAlreadyAcquired",                                         {"hipErrorAlreadyAcquired",                                  "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 210
+  {"cudaErrorAlreadyAcquired",                                         {"boschifyErrorAlreadyAcquired",                             "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 210
   // CUDA_ERROR_NOT_MAPPED
-  {"cudaErrorNotMapped",                                               {"hipErrorNotMapped",                                        "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 211
+  {"cudaErrorNotMapped",                                               {"boschifyErrorNotMapped",                                   "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 211
   // CUDA_ERROR_NOT_MAPPED_AS_ARRAY
-  {"cudaErrorNotMappedAsArray",                                        {"hipErrorNotMappedAsArray",                                 "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 212
+  {"cudaErrorNotMappedAsArray",                                        {"boschifyErrorNotMappedAsArray",                            "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 212
   // CUDA_ERROR_NOT_MAPPED_AS_POINTER
-  {"cudaErrorNotMappedAsPointer",                                      {"hipErrorNotMappedAsPointer",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 213
+  {"cudaErrorNotMappedAsPointer",                                      {"boschifyErrorNotMappedAsPointer",                          "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 213
   // CUDA_ERROR_ECC_UNCORRECTABLE
-  {"cudaErrorECCUncorrectable",                                        {"hipErrorECCNotCorrectable",                                "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 214
+  {"cudaErrorECCUncorrectable",                                        {"boschifyErrorECCNotCorrectable",                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 214
   // CUDA_ERROR_UNSUPPORTED_LIMIT
-  {"cudaErrorUnsupportedLimit",                                        {"hipErrorUnsupportedLimit",                                 "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 215
+  {"cudaErrorUnsupportedLimit",                                        {"boschifyErrorUnsupportedLimit",                            "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 215
   // CUDA_ERROR_CONTEXT_ALREADY_IN_USE
-  {"cudaErrorDeviceAlreadyInUse",                                      {"hipErrorContextAlreadyInUse",                              "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 216
+  {"cudaErrorDeviceAlreadyInUse",                                      {"boschifyErrorContextAlreadyInUse",                         "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 216
   // CUDA_ERROR_PEER_ACCESS_UNSUPPORTED
-  {"cudaErrorPeerAccessUnsupported",                                   {"hipErrorPeerAccessUnsupported",                            "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 217
+  {"cudaErrorPeerAccessUnsupported",                                   {"boschifyErrorPeerAccessUnsupported",                       "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 217
   // CUDA_ERROR_INVALID_PTX
-  {"cudaErrorInvalidPtx",                                              {"hipErrorInvalidKernelFile",                                "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 218
+  {"cudaErrorInvalidPtx",                                              {"boschifyErrorInvalidKernelFile",                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 218
   // CUDA_ERROR_INVALID_GRAPHICS_CONTEXT
-  {"cudaErrorInvalidGraphicsContext",                                  {"hipErrorInvalidGraphicsContext",                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 219
+  {"cudaErrorInvalidGraphicsContext",                                  {"boschifyErrorInvalidGraphicsContext",                      "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 219
   // CUDA_ERROR_NVLINK_UNCORRECTABLE
-  {"cudaErrorNvlinkUncorrectable",                                     {"hipErrorNvlinkUncorrectable",                              "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 220
+  {"cudaErrorNvlinkUncorrectable",                                     {"boschifyErrorNvlinkUncorrectable",                         "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 220
   // CUDA_ERROR_JIT_COMPILER_NOT_FOUND
-  {"cudaErrorJitCompilerNotFound",                                     {"hipErrorJitCompilerNotFound",                              "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 221
+  {"cudaErrorJitCompilerNotFound",                                     {"boschifyErrorJitCompilerNotFound",                         "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 221
   // CUDA_ERROR_UNSUPPORTED_PTX_VERSION
-  {"cudaErrorUnsupportedPtxVersion",                                   {"hipErrorUnsupportedPtxVersion",                            "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 222
+  {"cudaErrorUnsupportedPtxVersion",                                   {"boschifyErrorUnsupportedPtxVersion",                       "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 222
   // CUDA_ERROR_JIT_COMPILATION_DISABLED
-  {"cudaErrorJitCompilationDisabled",                                  {"hipErrorJitCompilationDisabled",                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 223
+  {"cudaErrorJitCompilationDisabled",                                  {"boschifyErrorJitCompilationDisabled",                      "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 223
   // CUDA_ERROR_UNSUPPORTED_EXEC_AFFINITY
-  {"cudaErrorUnsupportedExecAffinity",                                 {"hipErrorUnsupportedExecAffinity",                          "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 224
+  {"cudaErrorUnsupportedExecAffinity",                                 {"boschifyErrorUnsupportedExecAffinity",                     "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 224
   // CUDA_ERROR_UNSUPPORTED_DEVSIDE_SYNC
-  {"cudaErrorUnsupportedDevSideSync",                                  {"hipErrorUnsupportedDevSideSync",                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 225
+  {"cudaErrorUnsupportedDevSideSync",                                  {"boschifyErrorUnsupportedDevSideSync",                      "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 225
   // CUDA_ERROR_INVALID_SOURCE
-  {"cudaErrorInvalidSource",                                           {"hipErrorInvalidSource",                                    "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 300
+  {"cudaErrorInvalidSource",                                           {"boschifyErrorInvalidSource",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 300
   // CUDA_ERROR_FILE_NOT_FOUND
-  {"cudaErrorFileNotFound",                                            {"hipErrorFileNotFound",                                     "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 301
+  {"cudaErrorFileNotFound",                                            {"boschifyErrorFileNotFound",                                "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 301
   // CUDA_ERROR_SHARED_OBJECT_SYMBOL_NOT_FOUND
-  {"cudaErrorSharedObjectSymbolNotFound",                              {"hipErrorSharedObjectSymbolNotFound",                       "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 302
+  {"cudaErrorSharedObjectSymbolNotFound",                              {"boschifyErrorSharedObjectSymbolNotFound",                  "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 302
   // CUDA_ERROR_SHARED_OBJECT_INIT_FAILED
-  {"cudaErrorSharedObjectInitFailed",                                  {"hipErrorSharedObjectInitFailed",                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 303
+  {"cudaErrorSharedObjectInitFailed",                                  {"boschifyErrorSharedObjectInitFailed",                      "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 303
   // CUDA_ERROR_OPERATING_SYSTEM
-  {"cudaErrorOperatingSystem",                                         {"hipErrorOperatingSystem",                                  "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 304
+  {"cudaErrorOperatingSystem",                                         {"boschifyErrorOperatingSystem",                             "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 304
   // CUDA_ERROR_INVALID_HANDLE
-  {"cudaErrorInvalidResourceHandle",                                   {"hipErrorInvalidHandle",                                    "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 400
+  {"cudaErrorInvalidResourceHandle",                                   {"boschifyErrorInvalidHandle",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 400
   // CUDA_ERROR_ILLEGAL_STATE
-  {"cudaErrorIllegalState",                                            {"hipErrorIllegalState",                                     "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 401
+  {"cudaErrorIllegalState",                                            {"boschifyErrorIllegalState",                                "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 401
   // CUDA_ERROR_LOSSY_QUERY
-  {"cudaErrorLossyQuery",                                              {"hipErrorLossyQuery",                                       "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 402
+  {"cudaErrorLossyQuery",                                              {"boschifyErrorLossyQuery",                                  "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 402
   // CUDA_ERROR_NOT_FOUND
-  {"cudaErrorSymbolNotFound",                                          {"hipErrorNotFound",                                         "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 500
+  {"cudaErrorSymbolNotFound",                                          {"boschifyErrorNotFound",                                    "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 500
   // CUDA_ERROR_NOT_READY
-  {"cudaErrorNotReady",                                                {"hipErrorNotReady",                                         "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 600
+  {"cudaErrorNotReady",                                                {"boschifyErrorNotReady",                                    "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 600
  // CUDA_ERROR_ILLEGAL_ADDRESS
-  {"cudaErrorIllegalAddress",                                          {"hipErrorIllegalAddress",                                   "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 700
+  {"cudaErrorIllegalAddress",                                          {"boschifyErrorIllegalAddress",                              "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 700
   // CUDA_ERROR_LAUNCH_OUT_OF_RESOURCES
-  {"cudaErrorLaunchOutOfResources",                                    {"hipErrorLaunchOutOfResources",                             "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 701
+  {"cudaErrorLaunchOutOfResources",                                    {"boschifyErrorLaunchOutOfResources",                        "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 701
   // CUDA_ERROR_LAUNCH_TIMEOUT
-  {"cudaErrorLaunchTimeout",                                           {"hipErrorLaunchTimeOut",                                    "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 702
+  {"cudaErrorLaunchTimeout",                                           {"boschifyErrorLaunchTimeOut",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 702
   // CUDA_ERROR_LAUNCH_INCOMPATIBLE_TEXTURING
-  {"cudaErrorLaunchIncompatibleTexturing",                             {"hipErrorLaunchIncompatibleTexturing",                      "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 703
+  {"cudaErrorLaunchIncompatibleTexturing",                             {"boschifyErrorLaunchIncompatibleTexturing",                 "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 703
   // CUDA_ERROR_PEER_ACCESS_ALREADY_ENABLED
-  {"cudaErrorPeerAccessAlreadyEnabled",                                {"hipErrorPeerAccessAlreadyEnabled",                         "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 704
+  {"cudaErrorPeerAccessAlreadyEnabled",                                {"boschifyErrorPeerAccessAlreadyEnabled",                    "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 704
   // CUDA_ERROR_PEER_ACCESS_NOT_ENABLED
-  {"cudaErrorPeerAccessNotEnabled",                                    {"hipErrorPeerAccessNotEnabled",                             "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 705
+  {"cudaErrorPeerAccessNotEnabled",                                    {"boschifyErrorPeerAccessNotEnabled",                        "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 705
   // CUDA_ERROR_PRIMARY_CONTEXT_ACTIVE
-  {"cudaErrorSetOnActiveProcess",                                      {"hipErrorSetOnActiveProcess",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 708
+  {"cudaErrorSetOnActiveProcess",                                      {"boschifyErrorSetOnActiveProcess",                          "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 708
   // CUDA_ERROR_CONTEXT_IS_DESTROYED
-  {"cudaErrorContextIsDestroyed",                                      {"hipErrorContextIsDestroyed",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 709
+  {"cudaErrorContextIsDestroyed",                                      {"boschifyErrorContextIsDestroyed",                          "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 709
   // CUDA_ERROR_ASSERT
-  {"cudaErrorAssert",                                                  {"hipErrorAssert",                                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 710
+  {"cudaErrorAssert",                                                  {"boschifyErrorAssert",                                      "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 710
   // CUDA_ERROR_TOO_MANY_PEERS
-  {"cudaErrorTooManyPeers",                                            {"hipErrorTooManyPeers",                                     "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 711
+  {"cudaErrorTooManyPeers",                                            {"boschifyErrorTooManyPeers",                                "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 711
   // CUDA_ERROR_HOST_MEMORY_ALREADY_REGISTERED
-  {"cudaErrorHostMemoryAlreadyRegistered",                             {"hipErrorHostMemoryAlreadyRegistered",                      "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 712
+  {"cudaErrorHostMemoryAlreadyRegistered",                             {"boschifyErrorHostMemoryAlreadyRegistered",                 "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 712
   // CUDA_ERROR_HOST_MEMORY_NOT_REGISTERED
-  {"cudaErrorHostMemoryNotRegistered",                                 {"hipErrorHostMemoryNotRegistered",                          "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 713
+  {"cudaErrorHostMemoryNotRegistered",                                 {"boschifyErrorHostMemoryNotRegistered",                     "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 713
   // CUDA_ERROR_HARDWARE_STACK_ERROR
-  {"cudaErrorHardwareStackError",                                      {"hipErrorHardwareStackError",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 714
+  {"cudaErrorHardwareStackError",                                      {"boschifyErrorHardwareStackError",                          "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 714
   // CUDA_ERROR_ILLEGAL_INSTRUCTION
-  {"cudaErrorIllegalInstruction",                                      {"hipErrorIllegalInstruction",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 715
+  {"cudaErrorIllegalInstruction",                                      {"boschifyErrorIllegalInstruction",                          "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 715
   // CUDA_ERROR_MISALIGNED_ADDRESS
-  {"cudaErrorMisalignedAddress",                                       {"hipErrorMisalignedAddress",                                "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 716
+  {"cudaErrorMisalignedAddress",                                       {"boschifyErrorMisalignedAddress",                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 716
   // CUDA_ERROR_INVALID_ADDRESS_SPACE
-  {"cudaErrorInvalidAddressSpace",                                     {"hipErrorInvalidAddressSpace",                              "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 717
+  {"cudaErrorInvalidAddressSpace",                                     {"boschifyErrorInvalidAddressSpace",                         "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 717
   // CUDA_ERROR_INVALID_PC
-  {"cudaErrorInvalidPc",                                               {"hipErrorInvalidPc",                                        "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 718
+  {"cudaErrorInvalidPc",                                               {"boschifyErrorInvalidPc",                                   "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 718
   // CUDA_ERROR_LAUNCH_FAILED
-  {"cudaErrorLaunchFailure",                                           {"hipErrorLaunchFailure",                                    "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 719
+  {"cudaErrorLaunchFailure",                                           {"boschifyErrorLaunchFailure",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 719
   // CUDA_ERROR_COOPERATIVE_LAUNCH_TOO_LARGE
-  {"cudaErrorCooperativeLaunchTooLarge",                               {"hipErrorCooperativeLaunchTooLarge",                        "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 720
+  {"cudaErrorCooperativeLaunchTooLarge",                               {"boschifyErrorCooperativeLaunchTooLarge",                   "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 720
   // CUDA_ERROR_NOT_PERMITTED
-  {"cudaErrorNotPermitted",                                            {"hipErrorNotPermitted",                                     "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 800
+  {"cudaErrorNotPermitted",                                            {"boschifyErrorNotPermitted",                                "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 800
   // CUDA_ERROR_NOT_SUPPORTED
-  {"cudaErrorNotSupported",                                            {"hipErrorNotSupported",                                     "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 801
+  {"cudaErrorNotSupported",                                            {"boschifyErrorNotSupported",                                "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 801
   // CUDA_ERROR_SYSTEM_NOT_READY
-  {"cudaErrorSystemNotReady",                                          {"hipErrorSystemNotReady",                                   "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 802
+  {"cudaErrorSystemNotReady",                                          {"boschifyErrorSystemNotReady",                              "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 802
   // CUDA_ERROR_SYSTEM_DRIVER_MISMATCH
-  {"cudaErrorSystemDriverMismatch",                                    {"hipErrorSystemDriverMismatch",                             "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 803
+  {"cudaErrorSystemDriverMismatch",                                    {"boschifyErrorSystemDriverMismatch",                        "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 803
   // CUDA_ERROR_COMPAT_NOT_SUPPORTED_ON_DEVICE
-  {"cudaErrorCompatNotSupportedOnDevice",                              {"hipErrorCompatNotSupportedOnDevice",                       "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 804
+  {"cudaErrorCompatNotSupportedOnDevice",                              {"boschifyErrorCompatNotSupportedOnDevice",                  "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 804
   // CUDA_ERROR_MPS_CONNECTION_FAILED
-  {"cudaErrorMpsConnectionFailed",                                     {"hipErrorMpsConnectionFailed",                              "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 805
+  {"cudaErrorMpsConnectionFailed",                                     {"boschifyErrorMpsConnectionFailed",                         "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 805
   // CUDA_ERROR_MPS_RPC_FAILURE
-  {"cudaErrorMpsRpcFailure",                                           {"hipErrorMpsRpcFailed",                                     "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 806
+  {"cudaErrorMpsRpcFailure",                                           {"boschifyErrorMpsRpcFailed",                                "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 806
   // CUDA_ERROR_MPS_SERVER_NOT_READY
-  {"cudaErrorMpsServerNotReady",                                       {"hipErrorMpsServerNotReady",                                "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 807
+  {"cudaErrorMpsServerNotReady",                                       {"boschifyErrorMpsServerNotReady",                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 807
   // CUDA_ERROR_MPS_MAX_CLIENTS_REACHED
-  {"cudaErrorMpsMaxClientsReached",                                    {"hipErrorMpsMaxClientsReached",                             "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 808
+  {"cudaErrorMpsMaxClientsReached",                                    {"boschifyErrorMpsMaxClientsReached",                        "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 808
   // CUDA_ERROR_MPS_MAX_CONNECTIONS_REACHED
-  {"cudaErrorMpsMaxConnectionsReached",                                {"hipErrorMpsMaxConnectionsReached",                         "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 809
+  {"cudaErrorMpsMaxConnectionsReached",                                {"boschifyErrorMpsMaxConnectionsReached",                    "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 809
   // CUDA_ERROR_MPS_CLIENT_TERMINATED
-  {"cudaErrorMpsClientTerminated",                                     {"hipErrorMpsClientTerminated",                              "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 810
+  {"cudaErrorMpsClientTerminated",                                     {"boschifyErrorMpsClientTerminated",                         "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 810
   // CUDA_ERROR_CDP_NOT_SUPPORTED
-  {"cudaErrorCdpNotSupported",                                         {"hipErrorCdpNotUnsupported",                                "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 811
+  {"cudaErrorCdpNotSupported",                                         {"boschifyErrorCdpNotUnsupported",                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 811
   // CUDA_ERROR_CDP_VERSION_MISMATCH
-  {"cudaErrorCdpVersionMismatch",                                      {"hipErrorCdpVersionMismatch",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 812
+  {"cudaErrorCdpVersionMismatch",                                      {"boschifyErrorCdpVersionMismatch",                          "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 812
   // CUDA_ERROR_STREAM_CAPTURE_UNSUPPORTED
-  {"cudaErrorStreamCaptureUnsupported",                                {"hipErrorStreamCaptureUnsupported",                         "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 900
+  {"cudaErrorStreamCaptureUnsupported",                                {"boschifyErrorStreamCaptureUnsupported",                    "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 900
   // CUDA_ERROR_STREAM_CAPTURE_INVALIDATED
-  {"cudaErrorStreamCaptureInvalidated",                                {"hipErrorStreamCaptureInvalidated",                         "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 901
+  {"cudaErrorStreamCaptureInvalidated",                                {"boschifyErrorStreamCaptureInvalidated",                    "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 901
   // CUDA_ERROR_STREAM_CAPTURE_MERGE
-  {"cudaErrorStreamCaptureMerge",                                      {"hipErrorStreamCaptureMerge",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 902
+  {"cudaErrorStreamCaptureMerge",                                      {"boschifyErrorStreamCaptureMerge",                          "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 902
   // CUDA_ERROR_STREAM_CAPTURE_UNMATCHED
-  {"cudaErrorStreamCaptureUnmatched",                                  {"hipErrorStreamCaptureUnmatched",                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 903
+  {"cudaErrorStreamCaptureUnmatched",                                  {"boschifyErrorStreamCaptureUnmatched",                      "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 903
   // CUDA_ERROR_STREAM_CAPTURE_UNJOINED
-  {"cudaErrorStreamCaptureUnjoined",                                   {"hipErrorStreamCaptureUnjoined",                            "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 904
+  {"cudaErrorStreamCaptureUnjoined",                                   {"boschifyErrorStreamCaptureUnjoined",                       "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 904
   // CUDA_ERROR_STREAM_CAPTURE_ISOLATION
-  {"cudaErrorStreamCaptureIsolation",                                  {"hipErrorStreamCaptureIsolation",                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 905
+  {"cudaErrorStreamCaptureIsolation",                                  {"boschifyErrorStreamCaptureIsolation",                      "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 905
   // CUDA_ERROR_STREAM_CAPTURE_IMPLICIT
-  {"cudaErrorStreamCaptureImplicit",                                   {"hipErrorStreamCaptureImplicit",                            "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 906
+  {"cudaErrorStreamCaptureImplicit",                                   {"boschifyErrorStreamCaptureImplicit",                       "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 906
   // CUDA_ERROR_CAPTURED_EVENT
-  {"cudaErrorCapturedEvent",                                           {"hipErrorCapturedEvent",                                    "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 907
+  {"cudaErrorCapturedEvent",                                           {"boschifyErrorCapturedEvent",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 907
   // CUDA_ERROR_STREAM_CAPTURE_WRONG_THREAD
-  {"cudaErrorStreamCaptureWrongThread",                                {"hipErrorStreamCaptureWrongThread",                         "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 908
+  {"cudaErrorStreamCaptureWrongThread",                                {"boschifyErrorStreamCaptureWrongThread",                    "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 908
   // CUDA_ERROR_TIMEOUT
-  {"cudaErrorTimeout",                                                 {"hipErrorTimeout",                                          "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 909
+  {"cudaErrorTimeout",                                                 {"boschifyErrorTimeout",                                     "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 909
   // CUDA_ERROR_GRAPH_EXEC_UPDATE_FAILURE
-  {"cudaErrorGraphExecUpdateFailure",                                  {"hipErrorGraphExecUpdateFailure",                           "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 910
+  {"cudaErrorGraphExecUpdateFailure",                                  {"boschifyErrorGraphExecUpdateFailure",                      "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 910
   // CUDA_ERROR_EXTERNAL_DEVICE
-  {"cudaErrorExternalDevice",                                          {"hipErrorExternalDevice",                                   "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 911
+  {"cudaErrorExternalDevice",                                          {"boschifyErrorExternalDevice",                              "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 911
   // CUDA_ERROR_INVALID_CLUSTER_SIZE
-  {"cudaErrorInvalidClusterSize",                                      {"hipErrorInvalidClusterSize",                               "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 912
+  {"cudaErrorInvalidClusterSize",                                      {"boschifyErrorInvalidClusterSize",                          "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED}}, // 912
   // CUDA_ERROR_UNKNOWN
-  {"cudaErrorUnknown",                                                 {"hipErrorUnknown",                                          "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 999
+  {"cudaErrorUnknown",                                                 {"boschifyErrorUnknown",                                     "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES}}, // 999
   // Deprecated since CUDA 4.1
-  {"cudaErrorApiFailureBase",                                          {"hipErrorApiFailureBase",                                   "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED | CUDA_DEPRECATED}}, // 10000
+  {"cudaErrorApiFailureBase",                                          {"boschifyErrorApiFailureBase",                              "", CONV_NUMERIC_LITERAL, API_RUNTIME, SEC::DATA_TYPES, HIP_UNSUPPORTED | CUDA_DEPRECATED}}, // 10000
 
   // CUexternalMemoryHandleType
   {"cudaExternalMemoryHandleType",                                     {"hipExternalMemoryHandleType",                              "", CONV_TYPE, API_RUNTIME, SEC::DATA_TYPES}},

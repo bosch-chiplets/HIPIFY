@@ -2531,7 +2531,7 @@ bool HipifyAction::cudaKernelDefinition(const mat::MatchFinder::MatchResult &Res
 
             llvm::errs() << "rewritten cudaKernelDefinition from: " << kern->getDeclName().getAsString() << "(" << readSourceText(*SM, sr).str() << ");\n";
 
-            OS << "dim3 blocks, dim3 threadsPerBlock, dim3 threadIdx, " << readSourceText(*SM, sr).str();
+            OS << "dim3 gridDim, dim3 blockDim, dim3 blockIdx, dim3 threadIdx, " << readSourceText(*SM, sr).str();
 
 
             clang::SourceRange replacementRange = getWriteRange(*SM, sr);
